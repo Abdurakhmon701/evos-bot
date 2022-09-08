@@ -3,7 +3,7 @@ from aiogram import Bot, Dispatcher, executor, types
 from buttons import *
 from aiogram.types import Message,CallbackQuery
 
-API_TOKEN = '5525801848:AAEbzumAAwDzL1EVG4pfrf6KgVeTz4ZNU2Q'
+API_TOKEN = '5674089305:AAEqiSeWX4gtNvQnB9E2mItZJp9-iWExlp4'
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -18,7 +18,7 @@ async def send_welcome(message: types.Message):
     """
     This handler will be called when user sends `/start` or `/help` command
     """
-    await message.reply("Tilni tanlang",reply_markup=til)
+    await message.reply("Assalomu alaykum\nTilni tanlang",reply_markup=til)
 
 #=========================================================================================================
 # bu O'zbek tili uchun
