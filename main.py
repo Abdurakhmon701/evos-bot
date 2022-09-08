@@ -18,7 +18,7 @@ async def send_welcome(message: types.Message):
     """
     This handler will be called when user sends `/start` or `/help` command
     """
-    await message.reply("Assalomu alaykum\nTilni tanlang",reply_markup=til)
+    await message.reply("Tilni tanlang",reply_markup=til)
 
 #=========================================================================================================
 # bu O'zbek tili uchun
