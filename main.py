@@ -2,25 +2,80 @@ import logging
 from aiogram import Bot, Dispatcher, executor, types
 from buttons import *
 from aiogram.types import Message,CallbackQuery
+from sql import *
 
 API_TOKEN = '5674089305:AAEqiSeWX4gtNvQnB9E2mItZJp9-iWExlp4'
 
-# Configure logging
+#=========================================================================================================
+
+ # Configure logging
 logging.basicConfig(level=logging.INFO)
 
 # Initialize bot and dispatcher
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
 
-
+tablitsa()
+admin = 615003781
 @dp.message_handler(commands=['start', 'help'])
 async def send_welcome(message: types.Message):
-    """
-    This handler will be called when user sends `/start` or `/help` command
-    """
-    await message.reply("Tilni Tanlang",reply_markup=til)
+    idisi= message.from_user.id
+    name = message.from_user.first_name
+    nik = message.from_user.username
+    x = selekt_id(idisi)
+    if x == []:
+        qushish(idisi,name,nik)
+        await message.reply("Assalomu alaykum, ro'yxatdan o'tishingiz mumkin",reply_markup = raqam)
+    else:
+        await message.reply("Siz ro'yxatdan o'tkansiz",reply_markup = inline_javob)
+    
+    # types.ReplyKeyboardRemove()
+
+
+@dp.message_handler(content_types = ["contact"])
+async def echo(message: types.Message):
+    raqam = message.contact["phone_number"]
+    idisi= message.from_user.id
+    raqam_qushish(raqam,idisi)
+    await message.answer("Joylashuv yuboring ",reply_markup = geo)
+
+@dp.message_handler(content_types = ["location"])
+async def echo1(message: types.Message):
+    x = message.location["latitude"]
+    y = message.location["longitude"]
+    idisi= message.from_user.id
+    location_qushish(x,y,idisi)
+    z = info(idisi)
+    # await message.answer("Ma'lumotlaringiz qabul qilindi.",reply_markup = inline_javob)
+    await message.answer("Ma'lumotlaringiz qabul qilindi.",reply_markup = javob)
+    await bot.send_message(admin,z,parse_mode = "HTML")
+    await bot.send_location(admin,x, y)
+
+def info(idisi):
+    s = selekt_id(idisi) 
+    info1 = f"<b>Yangi foydalanuvchi ro'yxatdan o'tdi:\n</b>"
+    info1 += f"<b>ID: {s[0][1]}\nIsmi: {s[0][2]}\nUsername: @{s[0][3]}\nRaqam: +{s[0][4]}\n\n 🔽🔽🔽</b>"
+    return info1
+
+
 
 #=========================================================================================================
+# # Configure logging
+# logging.basicConfig(level=logging.INFO)
+
+# # Initialize bot and dispatche
+# bot = Bot(token=API_TOKEN)
+# dp = Dispatcher(bot)
+
+
+# @dp.message_handler(commands=['start', 'help'])
+# async def send_welcome(message: types.Message):
+#     """
+#     This handler will be called when user sends `/start` or `/help` command
+#     """
+#     await message.reply("Tilni tanlang",reply_markup=til)
+
+# #=========================================================================================================
 # bu O'zbek tili uchun
 @dp.message_handler(text = "🇺🇿 O'zbekcha")
 async def echo(message: types.Message):

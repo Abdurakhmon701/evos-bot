@@ -1,5 +1,27 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
 # bu til uchun
+
+# Raqam uchun knopka
+raqam = ReplyKeyboardMarkup(
+	keyboard = [
+	[
+		KeyboardButton(text = "📞 Raqam yuborish",request_contact = True),
+		],
+	],
+	resize_keyboard = True
+)
+
+# Joylashuv uchun knopka
+
+geo = ReplyKeyboardMarkup(
+	keyboard = [
+	[
+		KeyboardButton(text = "📍 Joylashuv yuboring",request_location = True),
+		],
+	],
+	resize_keyboard = True
+)
+# Bu til uchun knopka:
 til = ReplyKeyboardMarkup(
 	keyboard = [
 	[
